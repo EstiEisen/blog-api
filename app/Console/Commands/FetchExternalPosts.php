@@ -4,11 +4,12 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Services\ExternalPostService;
+use App\Models\Post;
 
 class FetchExternalPosts extends Command
 {
     protected $signature = 'posts:fetch-external';
-    protected $description = 'Fetches posts from an external API and displays them';
+    protected $description = 'Fetches posts from an external API';
 
     protected $postService;
 
@@ -24,9 +25,11 @@ class FetchExternalPosts extends Command
 
         if (count($posts) > 0) {
             foreach ($posts as $post) {
-                $this->info("Title: {$post['title']}");
-                $this->line("Body: {$post['body']}");
-                $this->line(str_repeat('-', 20));
+                Post::updateOrCreate(
+                    ['title' => $post['title']], 
+                    ['content' => $post['body'],
+                    'publication_date' =>  now()]  
+                );
             }
         } else {
             $this->error('No posts were retrieved.');
