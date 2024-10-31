@@ -1,4 +1,4 @@
-# blog-api
+# blog-api laravel
 
 # --Features--
 CRUD for Posts: Users can create, read, update, and delete blog posts.
