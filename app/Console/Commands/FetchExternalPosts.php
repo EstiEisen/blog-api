@@ -18,7 +18,9 @@ class FetchExternalPosts extends Command
         parent::__construct();
         $this->postService = $postService;
     }
-
+   
+        
+     //Execute the console command.
     public function handle()
     {
         $posts = $this->postService->fetchPosts();
